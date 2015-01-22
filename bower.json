@@ -8,7 +8,6 @@
     "fabric": "~1.4.4",
     "font-awesome": "~4.0.3",
     "jquery-ui": "~1.10.4",
-    "reset-css": "~2.0.20110126",
-    "ocanvas" :"~2.7.3"
+    "reset-css": "~2.0.20110126"
   }
 }
