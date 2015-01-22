@@ -1,0 +1,14 @@
+{
+  "name": "metathink",
+  "private": true,
+  "dependencies": {
+    "jquery": "~1.11.1",
+    "modernizr": "~2.8.2",
+    "normalize-css": "~3.0.0",
+    "fabric": "~1.4.4",
+    "font-awesome": "~4.0.3",
+    "jquery-ui": "~1.10.4",
+    "reset-css": "~2.0.20110126",
+    "ocanvas" :"~2.7.3"
+  }
+}
