@@ -584,4 +584,4 @@ var MetaThink = (function(window, undefined){
 	};
 }(window));
 
-$(document).on(MetaThink.config.events.ready, MetaThink.init);
+MetaThink.init();
