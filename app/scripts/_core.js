@@ -631,7 +631,7 @@ var common = {
 					origin = this.getOrigin(),
 					x = this.abs_x - origin.x,
 					y = this.abs_y - origin.y,
-					width = this.width;
+					width = this.width,
 					height = this.height;
 				canvas.beginPath();
 				
