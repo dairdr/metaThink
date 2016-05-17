@@ -21,7 +21,11 @@ var MetaThink = (function(window, undefined){
 			canvas: 'stage',
 			propertiesBar: 'div#properties-bar',
 			tools: 'a.tool',
-			toolActive: 'a.active'
+			toolActive: 'a.active',
+			root: '#root',
+			save: '#save',
+			viewXML: '#view-xml',
+			codeXML: '#code-xml'
 		}
 	};
 
@@ -89,6 +93,14 @@ var MetaThink = (function(window, undefined){
 		initCanvas();
 		listenToolbarSelection();
 		$(document).on(_config.events.keydown, deleteKeyPressCallbak);
+		$(document).on('opening', '.remodal', function () {
+	  	var text = "<root>"+$(_config.dom.root).html()+"</root>";
+	  	var $code = $(_config.dom.codeXML);
+	  	$code.text(text);
+	  	$('pre code').each(function(i, block) {
+		    hljs.highlightBlock(block);
+		  });
+		});
 	}
 
 	/**
@@ -333,6 +345,12 @@ var MetaThink = (function(window, undefined){
 				_context.addChild(o);
 				_toolSelected = null;
 				$(_config.dom.toolActive).removeClass('active');
+
+				// Build xml
+				var node = "<context id='$id' type='$type'></context>"
+					.replace("$id", o.id)
+					.replace("$type", o.type);
+				$(_config.dom.root).append(node);
 			}else{
 				console.log('this object can not be added directly on stage.');
 			}
@@ -381,7 +399,17 @@ var MetaThink = (function(window, undefined){
 			drawLine: drawLine
 		});
 		obj.addChild(o);
+		console.log(obj);
+		console.log(o);
 		cleanToolsBar();
+
+		// Build xml
+		var node = "<element id='$id' type='$type' />"
+			.replace("$id", o.id)
+			.replace("$type", o.type);
+		$(_config.dom.root)
+			.find("#"+obj.id)
+			.append(node);
 
 		for(var item in dependencesRules){
 			if(dependencesRules[item].class === c){
@@ -446,6 +474,22 @@ var MetaThink = (function(window, undefined){
 				}
 				obj.lines.push({line:line, observe:'start'});
 				o.lines.push({line:line, observe:'end'});
+
+				// Build xml
+				var node = "<element id='$id' type='$type' />"
+					.replace("$id", o.id)
+					.replace("$type", o.type);
+				$(_config.dom.root)
+					.find("#"+o.parent.id)
+					.append(node);
+
+				node = "<relationship id='$id' type='$type' from='$from' to='$to' />"
+					.replace("$id", line.id)
+					.replace("$type", line.type)
+					.replace("$from", obj.id)
+					.replace("$to", o.id);
+				$(_config.dom.root)
+					.append(node);
 			}
 			i += 1;
 		}
@@ -495,6 +539,15 @@ var MetaThink = (function(window, undefined){
 						}
 						_firstObject.lines.push({line:line, observe:'start'});
 						obj.lines.push({line:line, observe:'end'});
+
+						// Build xml
+						var node = "<relationship id='$id' type='$type' from='$from' to='$to' />"
+							.replace("$id", line.id)
+							.replace("$type", line.type)
+							.replace("$from", _firstObject.id)
+							.replace("$to", obj.id);
+						$(_config.dom.root)
+							.append(node);
 					}else{
 						//console.log('la relacion se repite entre los elementos');
 						console.log('ya existe una relacion entre los dos elementos');

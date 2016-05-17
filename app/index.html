@@ -12,8 +12,11 @@
     <link rel="stylesheet" href="bower_components/normalize-css/normalize.css" />
     <link rel="stylesheet" href="bower_components/reset-css/reset.css" />
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/remodal/dist/remodal.css" />
+    <link rel="stylesheet" href="bower_components/remodal/dist/remodal-default-theme.css" />
     <!-- endbower -->
     <!-- endbuild -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css" />
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -34,7 +37,12 @@
           </li
           ><li>
             <div>
-              <a href="javascript:;">Save</a>
+              <a id="save" href="javascript:;">Save</a>
+            </div>
+          </li
+          ><li>
+            <div>
+              <a data-remodal-target="modal">View XML</a>
             </div>
           </li>
         </ul>
@@ -349,6 +357,14 @@
           </div>
         </div>
       </section>
+      <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false, closeOnOutsideClick: false">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <h1>Result XML</h1>
+        <pre><code id="code-xml" class="xml"></code></pre>
+        <br>
+        <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+      </div>
+      <code id="root" class="hidden"></code>
     </div>
 
     <!-- build:js(.) scripts/vendor.js -->
@@ -356,8 +372,10 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/fabric/dist/fabric.min.js"></script>
     <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+    <script src="bower_components/remodal/dist/remodal.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>

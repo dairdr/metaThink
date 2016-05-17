@@ -39,6 +39,22 @@ img {
 	display: block;
 }
 
+.hidden {
+	display: none !important;
+}
+
+#code-xml {
+	margin-top: 1em;
+	height: 15em;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+span.hljs-tag {
+	display: block;
+	text-align: left;
+}
+
 *::-webkit-scrollbar {
    width: 7px;
    height: 9px;
